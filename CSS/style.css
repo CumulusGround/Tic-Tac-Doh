@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(206, 96, 0);
+    background-color: rgb(165, 77, 0);
     
 }
 
@@ -22,7 +22,7 @@ h1 {
 .row {
     margin: 0 auto;
     max-width: 60%;
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 .results {
@@ -45,13 +45,23 @@ h1 {
 
 .board-game {
     height: 50vh;
-    border: 2px solid black;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3,1fr);
     grid-gap: 2%;
+    background-color: rgba(0, 0, 0, 0.858);
 }
 
 .box {
     border: 2px solid purple;
+    border-radius: 10px;
+    background-color: rgb(206, 96, 0);
+}
+
+.player-one {
+    background-color: rgb(64, 255, 0);
+}
+
+.player-two {
+    background-color: rgb(13, 0, 255);
 }
