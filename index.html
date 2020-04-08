@@ -4,50 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1.0, initial-scale=1.0">
 
-    <!-- <link rel="stylesheet" href="CSS/grid.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="CSS/style.css">
 
-    <title>Tic Tac Toe</title>
+    <title>Tic-Tac-Doh!</title>
 </head>
+
 <body>
-    <header>
-    </header>    
+<header>
+    <h1>Tic - Tac - Doh!</h1>
+</header>    
 
-    <h1>Tic - Tac - Toe</h1>
+<main>
+    <div class="player left">
+        <h3>P1</h3>
+        <div class="player-one-results score-field"></div>
+    </div>
 
-    <section class="results row">
-        <div class="col span_1_of_3">
-            <h3>P1</h3>
-            <div class="player-one-results score-field"></div>
-        </div>
-        <div class="col span_1_of_3">
+    <div class="hair">
+       <div class="hair-top">
             <h3>Draw</h3>
             <div class="draw-results score-field"></div>
-        </div>
-        <div class="col span_1_of_3">
-            <h3>P2</h3>
-            <div class="player-two-results score-field"></div>
-        </div>
-    </section>
+       </div>
+       <div class="hair-body board-game">
+            <!-- <section class="board-game"> -->
+                <div class="box-1 box">
+                    <!-- <img src="CSS/images/bart-fried.png" alt="" height="100%"> -->
+                </div>
+                <div class="box-2 box">1</div>
+                <div class="box-3 box">2</div>
+                <div class="box-4 box">3</div>
+                <div class="box-5 box">4</div>
+                <div class="box-6 box">5</div>
+                <div class="box-7 box">6</div>
+                <div class="box-8 box">7</div>
+                <div class="box-9 box">8</div>    
+            <!-- </section> -->
+       </div>      
+    </div>
 
-    <section class="board-game row">
+    <div class="player right">
+        <h3>P2</h3>
+        <div class="player-two-results score-field"></div>
+    </div>
+</main>
 
-        <div class="box-1 box">0</div>
-        <div class="box-2 box">1</div>
-        <div class="box-3 box">2</div>
-        <div class="box-4 box">3</div>
-        <div class="box-5 box">4</div>
-        <div class="box-6 box">5</div>
-        <div class="box-7 box">6</div>
-        <div class="box-8 box">7</div>
-        <div class="box-9 box">8</div>
-        
-    </section>
+<div id="overlay-start" class="animated wobble">
+    <div class="overlay-text animated">
+        <h1>Tic - Tac - Doh!</h1>
+        <h2>A Simpson-themed game</h2>
+        <img src="CSS/images/donut.png" alt="Picture of a donut" height="250px" width="auto">
+        <p>Click anywhere to start</p>
+    </div class="overlay-text">
+</div>
 
-    <footer>
-
-    </footer>
-
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

@@ -3,6 +3,9 @@ console.log('Hi');
 //////////////////// DOM ELEMENTS //////////////////////
 ////////////////////////////////////////////////////////
 
+
+var overlayStart = document.getElementById("overlay-start")
+
 var pOneResultDisplay = document.querySelector('.player-one-results');
 var pTwoResultDisplay = document.querySelector('.player-two-results');
 var drawResultDisplay = document.querySelector('.draw-results');
@@ -111,15 +114,21 @@ var handleTurn = function (e) {
             // check for wins
             if(hasPlayerWon('player-two')) {
                 console.log('Player Two wins this round!');
-                pTwoResult += 1
-                pTwoResultDisplay.textContent = pTwoResult
-                clearBoard()
 
+                setTimeout(function(){
+                    pTwoResult += 1
+                    pTwoResultDisplay.textContent = pTwoResult
+                    clearBoard()
+                }, 2000)
+                
             } else if (isADraw()) {
                 console.log("This is a draw!");
-                drawResult += 1
-                drawResultDisplay.textContent = drawResult
-                clearBoard()
+
+                setTimeout(function(){
+                    drawResult += 1
+                    drawResultDisplay.textContent = drawResult
+                    clearBoard()
+                }, 2000)
             } ;
             return
         }    
@@ -131,6 +140,7 @@ var handleTurn = function (e) {
     } else {
         // player turn
         e.target.classList.add('player-one', 'checked');
+        // e.target.textContent = 
         clearInterval(pTwoTimerOn);
         pTwoTimerOn = null;
         pOneTimerOn = setInterval(function(){console.log('t1ck')}, 1000);
@@ -138,20 +148,35 @@ var handleTurn = function (e) {
         // check for wins
         if(hasPlayerWon('player-one')) {
             console.log('Player One wins this round!');
-            pOneResult += 1
-            pOneResultDisplay.textContent = pOneResult
-            clearBoard()
+
+            setTimeout(function(){
+                pOneResult += 1
+                pOneResultDisplay.textContent = pOneResult
+                clearBoard()
+            }, 2000)
 
         } else if (isADraw()) {
             console.log("This migh be a draw");
-            drawResult += 1
-            drawResultDisplay.textContent = drawResult
-            clearBoard()
+            
+            setTimeout(function(){
+                drawResult += 1
+                drawResultDisplay.textContent = drawResult
+                clearBoard()
+            }, 2000)
         }   
     }
 }
 
-
+////////////////////////////////////////////////////////
+///////////////// THE STYLE FUNCTIONS //////////////////
+////////////////////////////////////////////////////////
+function on() {
+    overlayStart.style.display = "block";
+  }
+  
+function off() {
+    overlayStart.style.display = "none";
+}
 
 ////////////////////////////////////////////////////////
 /////////////////// EVENT LISTENNER ////////////////////
@@ -160,3 +185,5 @@ var handleTurn = function (e) {
 boardGameBoxes.forEach(function(box) {
     box.addEventListener('click', handleTurn);
 });
+
+overlayStart.addEventListener('click', off)
