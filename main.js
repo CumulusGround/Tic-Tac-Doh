@@ -8,20 +8,15 @@ var pTwoResultDisplay = document.querySelector('.player-two-results');
 var drawResultDisplay = document.querySelector('.draw-results');
 var boardGameBoxes = document.querySelectorAll('.box');
 
-// var box1 = document.querySelector('.box-1');
-// var box2 = document.querySelector('.box-2');
-// var box3 = document.querySelector('.box-3');
-// var box4 = document.querySelector('.box-4');
-// var box5 = document.querySelector('.box-5');
-// var box6 = document.querySelector('.box-6');
-// var box7 = document.querySelector('.box-7');
-// var box8 = document.querySelector('.box-8');
-// var box9 = document.querySelector('.box-9');
+// var col1 = [boardGameBoxes[0], boardGameBoxes[3], boardGameBoxes[6]]
+// var col2 = [boardGameBoxes[1], boardGameBoxes[4], boardGameBoxes[7]]
+// var col3 = [boardGameBoxes[2], boardGameBoxes[5], boardGameBoxes[8]]
 
 ////////////////////////////////////////////////////////
 //////////////////////// DATA //////////////////////////
 ////////////////////////////////////////////////////////
-
+var pOneArray = [];
+var pTwoArray = [];
 var pOneResult = 0;
 var pTwoResult = 0;
 var drawResult = 0;
@@ -49,16 +44,51 @@ var clearBoard = function() {
 
 
 
-var handleWin = function() {
+var hasPlayerWon = function(player) {
+    var winning = false;
+
+    // check for rows
+    if (boardGameBoxes[0].classList.contains(player) && boardGameBoxes[1].classList.contains(player) && boardGameBoxes[2].classList.contains(player)) {
+        winning = true;
+
+    } else if (boardGameBoxes[3].classList.contains(player) && boardGameBoxes[4].classList.contains(player) && boardGameBoxes[5].classList.contains(player)) {
+        winning = true;
+
+    } else if (boardGameBoxes[6].classList.contains(player) && boardGameBoxes[7].classList.contains(player) && boardGameBoxes[8].classList.contains(player)) {
+        winning = true;
+    }
+
+    // checks for columns
+    if (boardGameBoxes[0].classList.contains(player) && boardGameBoxes[3].classList.contains(player) && boardGameBoxes[6].classList.contains(player)) {
+        winning = true;
+
+    } else if (boardGameBoxes[1].classList.contains(player) && boardGameBoxes[4].classList.contains(player) && boardGameBoxes[7].classList.contains(player)) {
+        winning = true;
+
+    } else if (boardGameBoxes[2].classList.contains(player) && boardGameBoxes[5].classList.contains(player) && boardGameBoxes[8].classList.contains(player)) {
+        winning = true;
+    }
+
+    // checks for diagonals
+    if (boardGameBoxes[0].classList.contains(player) && boardGameBoxes[4].classList.contains(player) && boardGameBoxes[8].classList.contains(player)) {
+        winning = true;
+
+    } else if (boardGameBoxes[2].classList.contains(player) && boardGameBoxes[4].classList.contains(player) && boardGameBoxes[6].classList.contains(player)) {
+        winning = true;
+    }
+    return winning
+}
+
+
+
+var isADraw = function() {
 
     var allChecked = document.querySelectorAll('.checked');
-    console.log(allChecked); 
 
     if (boardGameBoxes.length === allChecked.length) {
-        console.log("This migh be a draw");
-        drawResult += 1
-        drawResultDisplay.textContent = drawResult
-        clearBoard()
+        return true
+    } else {
+        return false
     }
 }
 
@@ -68,9 +98,6 @@ var pOneTimerOn = null;
 var pTwoTimerOn = null;
 
 var handleTurn = function (e) {
-    // console.log(e);
-    // var allChecked = []
-    //
 
     if (pOneTimerOn) { 
         if (e.target.classList.contains('checked')) { 
@@ -81,22 +108,46 @@ var handleTurn = function (e) {
             clearInterval(pOneTimerOn)
             pOneTimerOn = null;
 
-            handleWin();
+            // check for wins
+            if(hasPlayerWon('player-two')) {
+                console.log('Player Two wins this round!');
+                pTwoResult += 1
+                pTwoResultDisplay.textContent = pTwoResult
+                clearBoard()
+
+            } else if (isADraw()) {
+                console.log("This is a draw!");
+                drawResult += 1
+                drawResultDisplay.textContent = drawResult
+                clearBoard()
+            } ;
             return
         }    
     }
 
     
     if (e.target.classList.contains('checked')) { 
-        // console.log('cooked it mate');
         return
     } else {
+        // player turn
         e.target.classList.add('player-one', 'checked');
         clearInterval(pTwoTimerOn);
         pTwoTimerOn = null;
         pOneTimerOn = setInterval(function(){console.log('t1ck')}, 1000);
 
-        handleWin();
+        // check for wins
+        if(hasPlayerWon('player-one')) {
+            console.log('Player One wins this round!');
+            pOneResult += 1
+            pOneResultDisplay.textContent = pOneResult
+            clearBoard()
+
+        } else if (isADraw()) {
+            console.log("This migh be a draw");
+            drawResult += 1
+            drawResultDisplay.textContent = drawResult
+            clearBoard()
+        }   
     }
 }
 
@@ -109,13 +160,3 @@ var handleTurn = function (e) {
 boardGameBoxes.forEach(function(box) {
     box.addEventListener('click', handleTurn);
 });
-
-
-////////////////////////////////////////////////////////
-///////////////////// WINNING LOGIC ////////////////////
-////////////////////////////////////////////////////////
-
-// the draw
-/// for each boxe
-        //does it contains a class
-                //
