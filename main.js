@@ -1,3 +1,4 @@
+console.log('Hi');
 ////////////////////////////////////////////////////////
 //////////////////// DOM ELEMENTS //////////////////////
 ////////////////////////////////////////////////////////
@@ -37,9 +38,29 @@ drawResultDisplay.textContent = drawResult
 ////////////////////////////////////////////////////////
 ////////////////////// FUNCTIONS ///////////////////////
 ////////////////////////////////////////////////////////
-// var handleWin = function(params) {
-//     var allChecked = document.querySelectorAll('.checked');
-// }
+var clearBoard = function() {
+
+    boardGameBoxes.forEach(function(box) {
+        box.classList.remove('player-one','player-two', 'checked')
+    });
+    clearInterval(pOneTimerOn)
+    clearInterval(pTwoTimerOn)
+}
+
+
+
+var handleWin = function() {
+
+    var allChecked = document.querySelectorAll('.checked');
+    console.log(allChecked); 
+
+    if (boardGameBoxes.length === allChecked.length) {
+        console.log("This migh be a draw");
+        drawResult += 1
+        drawResultDisplay.textContent = drawResult
+        clearBoard()
+    }
+}
 
 
 
@@ -48,6 +69,7 @@ var pTwoTimerOn = null;
 
 var handleTurn = function (e) {
     // console.log(e);
+    // var allChecked = []
     //
 
     if (pOneTimerOn) { 
@@ -57,28 +79,25 @@ var handleTurn = function (e) {
             e.target.classList.add('player-two', 'checked');
             pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
             clearInterval(pOneTimerOn)
-            pOneTimerOn = null;    
+            pOneTimerOn = null;
+
+            handleWin();
+            return
         }    
     }
 
     
     if (e.target.classList.contains('checked')) { 
+        // console.log('cooked it mate');
         return
     } else {
         e.target.classList.add('player-one', 'checked');
         clearInterval(pTwoTimerOn);
         pTwoTimerOn = null;
         pOneTimerOn = setInterval(function(){console.log('t1ck')}, 1000);
-    }
 
-    /////////////////////////
-    var allChecked = document.querySelectorAll('.checked');
-    console.log(allChecked);
-
-    if (allChecked === boardGameBoxes) {
-        console.log('it\'s a draw');
+        handleWin();
     }
-///////////////////////////////
 }
 
 
