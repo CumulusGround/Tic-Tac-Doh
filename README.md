@@ -1,6 +1,6 @@
 # TIC - TAC - DOH
 
-Link <a href="https://cumulusground.github.io/Tic-Tac-Doh/">here</a>
+Game <a href="https://cumulusground.github.io/Tic-Tac-Doh/">here</a>
 > just open the link and you'll be ready to play
 
 ## Technology used
@@ -24,8 +24,8 @@ Self-explanatory, I retrieved all the elements needed through querySelectors and
 
 ### Functions and game logic
 #### working out how to alternate players
-    My first step once to figure out how to handle turns. I ended going with a mix of Intervals Timers and IF statements. 
-    I like the Interval method because it made me think of chess and I figure out I could display the player timer in the future for added informations.
+My first step once to figure out how to handle turns. I ended going with a mix of Intervals Timers and IF statements. 
+I like the Interval method because it made me think of chess and I figure out I could display the player timer in the future for added informations.
 
 #### Working out how to make player one win
     Working out the game logic was definitaly the toughest part for me. At the time of submition of this project, the game works but I'm not happy with the logic. I really struggle for a while as I felt I was subject to: 1) following to many solutions at once. b) wanting to make it perfect the first time around. c) thinking about future problems instead of focusing on the simplest building block.
