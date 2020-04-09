@@ -2,9 +2,9 @@
 
 Game <a href="https://cumulusground.github.io/Tic-Tac-Doh/">here</a>
 > just open the link and you'll be ready to play
-![alt text][logo]
+![alt text](https://github.com/CumulusGround/Tic-Tac-Doh/blob/master/Resources/Game-screenshots/landing-page.png)
 
-[logo]:
+![alt text](https://github.com/CumulusGround/Tic-Tac-Doh/blob/master/Resources/Game-screenshots/game.png)
 
 ## Technology used
 This game is writing in HTML, CSS and Javascript.
