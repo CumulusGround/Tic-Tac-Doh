@@ -9,6 +9,7 @@ Designed by Huerta Tipográfica
 
 ## things to further improve
 - Curve the text on the start screen
+- Add that the overlay text changes to 1 point sliding to the winner score board
 
 
 Technologies used, 

@@ -7,7 +7,7 @@
 body {
     background-color: rgb(255, 225, 0);
     font-family: 'Gochi Hand', cursive;
-    /* font-size: 30px; */
+    font-size: 50px;
 
     
 }
@@ -17,13 +17,17 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 60px;
+    /* font-size: 60px; */
     padding: 20px;
     padding-bottom: 15px;
 }
 
+h2 {
+    font-size: 40px;
+}
+
 h3 {
-    font-size: 30px;
+    /* font-size: 30px; */
 }
 
 /* ------------------------------------------- */
@@ -33,7 +37,7 @@ h3 {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    height: 82vh;
+    height: 80vh;
     justify-items: center;
 }
 
@@ -42,7 +46,7 @@ main {
 .hair { 
     background-color: rgb(0, 70, 247);
     width: 100%;
-    max-width: 210px;
+    max-width: 320px;
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
     border: 5px solid black;
@@ -52,60 +56,62 @@ main {
 .hair-top {
     justify-self: center;
     padding-top: 19px;
-
 }
 
 .hair-body {
-    height: 100%;
-    /* width: 95%; */
-    
+    height: 100%;    
 }
+
 .board-game {
-    /* height: 50vh; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3,1fr);
     grid-gap: 1px;
     margin: 3px;
-    /* width: 95%; */
-    
 }
 
 .box {
     border: 2px solid black;
     border-radius: 10px;
-    background-color: rgb(255, 238, 0);
+    background-color: rgb(250, 234, 0);
     display: grid;
     justify-items: center;
     align-items: center;
 }
 
+.box:hover {
+    box-shadow: 1px 3px 5px 0px;
+    background-color: rgb(255, 238, 0);
+
+}
 
 .player {
     padding-top: 25px;
 }
 
-
 .score-field {
-    /* background-color: rgb(162, 162, 162); */
     text-align: center;
     font-weight: bold;
 }
 
 
 .player-one {
-    background-color: rgb(64, 255, 0);
-    /* background-image: url(./images/bart-fried.png); */
-}
+    /* background-color: rgb(64, 255, 0); */
+    background-image: url(./images/bart-fried.png);
+    background-size: cover;
+    background-position: center;}
 
 .player-two {
-    background-color: rgb(255, 0, 234);
+    /* background-color: rgb(255, 0, 234); */
+    background-image: url(./images/Homer-pointing.png);
+    background-size: cover;
+    background-position: center;
 }
 
 
 #overlay-start {
     position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
+    display: block; /* Hidden by default */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     top: 0;
@@ -123,11 +129,36 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 80%;
+    -ms-transform: translate(-50%,-50%);
+    width: 100%;
     text-align: center;
-    /* -ms-transform: translate(-50%,-50%); */
 }
 
 .overlay-text h1 {
     padding: 10px;
+}
+
+#winning-overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.604);
+    z-index: 2;
+    cursor: pointer; /* Add a pointer on hover */
+
+}
+
+.homer-win {
+    display: none;
+    margin: 0 auto;
+}
+
+.bart-win {
+    display: none;
+    margin: 0 auto;
 }

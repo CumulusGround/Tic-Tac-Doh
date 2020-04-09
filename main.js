@@ -1,10 +1,17 @@
-console.log('Hi');
+// console.log('Hawdafi');
 ////////////////////////////////////////////////////////
 //////////////////// DOM ELEMENTS //////////////////////
 ////////////////////////////////////////////////////////
 
 
 var overlayStart = document.getElementById("overlay-start")
+
+var resetBtn = document.querySelector('.reset-btn');
+var winningBtn = document.querySelector('.winning-btn');
+var winningText = document.querySelector('.winning-text');
+var winningOverlay = document.getElementById("winning-overlay")
+var homerWin = document.querySelector('.homer-win');
+var bartWin = document.querySelector('.bart-win');
 
 var pOneResultDisplay = document.querySelector('.player-one-results');
 var pTwoResultDisplay = document.querySelector('.player-two-results');
@@ -36,6 +43,18 @@ drawResultDisplay.textContent = drawResult
 ////////////////////////////////////////////////////////
 ////////////////////// FUNCTIONS ///////////////////////
 ////////////////////////////////////////////////////////
+var winningAnimation = function () {
+    winningOverlay.style.display = "block";
+}
+
+var winningAnimationOFF = function () {
+    winningOverlay.style.display = "none";
+    winningText.textContent = "Doh! It's a draw."
+    homerWin.style.display = "none"
+    bartWin.style.display = "none"
+}
+
+
 var clearBoard = function() {
 
     boardGameBoxes.forEach(function(box) {
@@ -111,23 +130,30 @@ var handleTurn = function (e) {
             clearInterval(pOneTimerOn)
             pOneTimerOn = null;
 
+
             // check for wins
             if(hasPlayerWon('player-two')) {
-                console.log('Player Two wins this round!');
+                
+                winningText.textContent = 'Player Two wins this round!';
+                homerWin.style.display = "block"
+                winningAnimation()
+
 
                 setTimeout(function(){
                     pTwoResult += 1
                     pTwoResultDisplay.textContent = pTwoResult
                     clearBoard()
+                    winningAnimationOFF()
                 }, 2000)
                 
             } else if (isADraw()) {
-                console.log("This is a draw!");
+                winningAnimation()
 
                 setTimeout(function(){
                     drawResult += 1
                     drawResultDisplay.textContent = drawResult
                     clearBoard()
+                    winningAnimationOFF()
                 }, 2000)
             } ;
             return
@@ -140,28 +166,33 @@ var handleTurn = function (e) {
     } else {
         // player turn
         e.target.classList.add('player-one', 'checked');
-        // e.target.textContent = 
         clearInterval(pTwoTimerOn);
         pTwoTimerOn = null;
         pOneTimerOn = setInterval(function(){console.log('t1ck')}, 1000);
 
         // check for wins
         if(hasPlayerWon('player-one')) {
-            console.log('Player One wins this round!');
+            winningText.textContent = 'Player One wins this round!'
+            bartWin.style.display = "block"
+            winningAnimation()
+            // console.log('Player One wins this round!');
 
             setTimeout(function(){
                 pOneResult += 1
                 pOneResultDisplay.textContent = pOneResult
                 clearBoard()
+                winningAnimationOFF()
             }, 2000)
 
         } else if (isADraw()) {
             console.log("This migh be a draw");
-            
+            winningAnimation()
+
             setTimeout(function(){
                 drawResult += 1
                 drawResultDisplay.textContent = drawResult
                 clearBoard()
+                winningAnimationOFF()
             }, 2000)
         }   
     }
@@ -186,4 +217,14 @@ boardGameBoxes.forEach(function(box) {
     box.addEventListener('click', handleTurn);
 });
 
-overlayStart.addEventListener('click', off)
+resetBtn.addEventListener('click', clearBoard);
+
+winningBtn.addEventListener('click', function () {
+    boardGameBoxes[0].classList.add('player-one');
+    boardGameBoxes[1].classList.add('player-one');
+    // boardGameBoxes[2].classList.add('player-one');
+});
+
+overlayStart.addEventListener('click', function(){
+    overlayStart.classList.add('hinge');    
+}, off)

@@ -12,6 +12,17 @@
 </head>
 
 <body>
+
+<div id="overlay-start" class="animated">
+    <div class="overlay-text">
+        <h1>Tic - Tac - Doh!</h1>
+        <h2>A Simpson-themed game</h2>
+        <img src="CSS/images/donut.png" alt="Picture of a donut" height="400px" width="auto">
+        <p>Click anywhere to start</p>
+    </div class="overlay-text">
+</div>
+
+
 <header>
     <h1>Tic - Tac - Doh!</h1>
 </header>    
@@ -28,19 +39,19 @@
             <div class="draw-results score-field"></div>
        </div>
        <div class="hair-body board-game">
-            <!-- <section class="board-game"> -->
-                <div class="box-1 box">
-                    <!-- <img src="CSS/images/bart-fried.png" alt="" height="100%"> -->
-                </div>
-                <div class="box-2 box">1</div>
-                <div class="box-3 box">2</div>
-                <div class="box-4 box">3</div>
-                <div class="box-5 box">4</div>
-                <div class="box-6 box">5</div>
-                <div class="box-7 box">6</div>
-                <div class="box-8 box">7</div>
-                <div class="box-9 box">8</div>    
-            <!-- </section> -->
+                <div class="box-1 box"></div>
+                <div class="box-2 box"></div>
+                <div class="box-3 box"></div>
+                <div class="box-4 box"></div>
+                <div class="box-5 box"></div>
+                <div class="box-6 box"></div>
+                <div class="box-7 box"></div>
+                <div class="box-8 box"></div>
+                <div class="box-9 box"></div>    
+       </div>
+       <div class="buttons">
+           <button class="winning-btn">Fake win</button>
+           <button class="reset-btn">reset</button>
        </div>      
     </div>
 
@@ -48,16 +59,19 @@
         <h3>P2</h3>
         <div class="player-two-results score-field"></div>
     </div>
+
+    <div id="winning-overlay" class="animated zoomInUp">
+        <div class="overlay-text">
+            <h1 class="winning-text">Doh! It's a draw.</h1>
+
+            <img src="CSS/images/homer-hulk.png" alt="Homer is homer-hulk" class="homer-win">  
+            <img src="CSS/images/homer-strangle.png" alt="Homer strangling bart hatefully" class="bart-win"> 
+        </div> 
+    </divcla>
+
 </main>
 
-<div id="overlay-start" class="animated wobble">
-    <div class="overlay-text animated">
-        <h1>Tic - Tac - Doh!</h1>
-        <h2>A Simpson-themed game</h2>
-        <img src="CSS/images/donut.png" alt="Picture of a donut" height="250px" width="auto">
-        <p>Click anywhere to start</p>
-    </div class="overlay-text">
-</div>
+
 
 <script src="main.js"></script>
 </body>
