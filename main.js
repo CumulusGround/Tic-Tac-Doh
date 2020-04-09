@@ -1,4 +1,7 @@
 // console.log('Hawdafi');
+
+
+
 ////////////////////////////////////////////////////////
 //////////////////// DOM ELEMENTS //////////////////////
 ////////////////////////////////////////////////////////
@@ -6,25 +9,25 @@
 
 var overlayStart = document.getElementById("overlay-start")
 
-var resetBtn = document.querySelector('.reset-btn');
-var winningBtn = document.querySelector('.winning-btn');
-var winningText = document.querySelector('.winning-text');
-var winningOverlay = document.getElementById("winning-overlay")
-var homerWin = document.querySelector('.homer-win');
-var bartWin = document.querySelector('.bart-win');
-
 var pOneResultDisplay = document.querySelector('.player-one-results');
 var pTwoResultDisplay = document.querySelector('.player-two-results');
 var drawResultDisplay = document.querySelector('.draw-results');
 var boardGameBoxes = document.querySelectorAll('.box');
 
-// var col1 = [boardGameBoxes[0], boardGameBoxes[3], boardGameBoxes[6]]
-// var col2 = [boardGameBoxes[1], boardGameBoxes[4], boardGameBoxes[7]]
-// var col3 = [boardGameBoxes[2], boardGameBoxes[5], boardGameBoxes[8]]
+var resetBtn = document.querySelector('.reset-btn');
+var winningBtn = document.querySelector('.winning-btn');
+
+var winningOverlay = document.getElementById("winning-overlay")
+var winningText = document.querySelector('.winning-text');
+var homerWin = document.querySelector('.homer-win');
+var bartWin = document.querySelector('.bart-win');
+
 
 ////////////////////////////////////////////////////////
 //////////////////////// DATA //////////////////////////
 ////////////////////////////////////////////////////////
+var audioContext = new AudioContext();
+
 var pOneArray = [];
 var pTwoArray = [];
 var pOneResult = 0;
@@ -37,15 +40,28 @@ pOneResultDisplay.textContent = pOneResult
 pTwoResultDisplay.textContent = pTwoResult
 drawResultDisplay.textContent = drawResult
 
-// var P1Emblem
-// var P2Emblem
+var pOneTimerOn = null;
+var pTwoTimerOn = null;
 
 ////////////////////////////////////////////////////////
 ////////////////////// FUNCTIONS ///////////////////////
 ////////////////////////////////////////////////////////
+
+function on() {
+    overlayStart.style.display = "block";
+}
+
+
+function off() {
+    overlayStart.style.display = "none";
+    eyeMovement()
+}
+
+
 var winningAnimation = function () {
     winningOverlay.style.display = "block";
 }
+
 
 var winningAnimationOFF = function () {
     winningOverlay.style.display = "none";
@@ -55,18 +71,30 @@ var winningAnimationOFF = function () {
 }
 
 
+var eyeMovement = function() {
+
+    setTimeout(function(){
+        document.querySelectorAll('.pupil').forEach(function(pupil){
+            pupil.classList.toggle('stare');
+        });
+    },7000)
+}
+
+
 var clearBoard = function() {
 
     boardGameBoxes.forEach(function(box) {
         box.classList.remove('player-one','player-two', 'checked')
     });
+
     clearInterval(pOneTimerOn)
     clearInterval(pTwoTimerOn)
+    eyeMovement()
 }
 
 
-
 var hasPlayerWon = function(player) {
+
     var winning = false;
 
     // check for rows
@@ -98,9 +126,9 @@ var hasPlayerWon = function(player) {
     } else if (boardGameBoxes[2].classList.contains(player) && boardGameBoxes[4].classList.contains(player) && boardGameBoxes[6].classList.contains(player)) {
         winning = true;
     }
+
     return winning
 }
-
 
 
 var isADraw = function() {
@@ -115,19 +143,17 @@ var isADraw = function() {
 }
 
 
-
-var pOneTimerOn = null;
-var pTwoTimerOn = null;
-
 var handleTurn = function (e) {
 
     if (pOneTimerOn) { 
         if (e.target.classList.contains('checked')) { 
             return
         } else {
-            e.target.classList.add('player-two', 'checked');
+            e.target.classList.add('player-two', 'checked', 'animated', 'bounceIn');
+            
             pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
             clearInterval(pOneTimerOn)
+            
             pOneTimerOn = null;
 
 
@@ -138,7 +164,6 @@ var handleTurn = function (e) {
                 homerWin.style.display = "block"
                 winningAnimation()
 
-
                 setTimeout(function(){
                     pTwoResult += 1
                     pTwoResultDisplay.textContent = pTwoResult
@@ -147,8 +172,8 @@ var handleTurn = function (e) {
                 }, 2000)
                 
             } else if (isADraw()) {
-                winningAnimation()
 
+                winningAnimation()
                 setTimeout(function(){
                     drawResult += 1
                     drawResultDisplay.textContent = drawResult
@@ -165,18 +190,17 @@ var handleTurn = function (e) {
         return
     } else {
         // player turn
-        e.target.classList.add('player-one', 'checked');
+        e.target.classList.add('player-one', 'checked', 'animated', 'rotateIn');
         clearInterval(pTwoTimerOn);
         pTwoTimerOn = null;
         pOneTimerOn = setInterval(function(){console.log('t1ck')}, 1000);
 
         // check for wins
         if(hasPlayerWon('player-one')) {
+
             winningText.textContent = 'Player One wins this round!'
             bartWin.style.display = "block"
             winningAnimation()
-            // console.log('Player One wins this round!');
-
             setTimeout(function(){
                 pOneResult += 1
                 pOneResultDisplay.textContent = pOneResult
@@ -185,9 +209,8 @@ var handleTurn = function (e) {
             }, 2000)
 
         } else if (isADraw()) {
-            console.log("This migh be a draw");
-            winningAnimation()
 
+            winningAnimation()
             setTimeout(function(){
                 drawResult += 1
                 drawResultDisplay.textContent = drawResult
@@ -199,32 +222,24 @@ var handleTurn = function (e) {
 }
 
 ////////////////////////////////////////////////////////
-///////////////// THE STYLE FUNCTIONS //////////////////
-////////////////////////////////////////////////////////
-function on() {
-    overlayStart.style.display = "block";
-  }
-  
-function off() {
-    overlayStart.style.display = "none";
-}
-
-////////////////////////////////////////////////////////
 /////////////////// EVENT LISTENNER ////////////////////
 ////////////////////////////////////////////////////////
+
+overlayStart.addEventListener('click', function(){
+    overlayStart.classList.add('hinge');    
+}, off)
+
 
 boardGameBoxes.forEach(function(box) {
     box.addEventListener('click', handleTurn);
 });
 
+
 resetBtn.addEventListener('click', clearBoard);
 
-winningBtn.addEventListener('click', function () {
-    boardGameBoxes[0].classList.add('player-one');
-    boardGameBoxes[1].classList.add('player-one');
-    // boardGameBoxes[2].classList.add('player-one');
-});
+// winningBtn.addEventListener('click', function () {
+//     boardGameBoxes[0].classList.add('player-one');
+//     boardGameBoxes[1].classList.add('player-one');
+//     // boardGameBoxes[2].classList.add('player-one');
+// });
 
-overlayStart.addEventListener('click', function(){
-    overlayStart.classList.add('hinge');    
-}, off)

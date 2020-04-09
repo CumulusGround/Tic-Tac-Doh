@@ -26,10 +26,6 @@ h2 {
     font-size: 40px;
 }
 
-h3 {
-    /* font-size: 30px; */
-}
-
 /* ------------------------------------------- */
 /* ------------------------------------------- */
 /* ------------------------------------------- */
@@ -50,7 +46,8 @@ main {
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
     border: 5px solid black;
-    border-radius: 100px 100px 0 0;
+    border-radius: 100px 100px 10px 10px;
+    /* box-shadow: 5px 0px 10px 5px */
 }
 
 .hair-top {
@@ -84,6 +81,67 @@ main {
     background-color: rgb(255, 238, 0);
 
 }
+
+.hair-bottom {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.reset-btn {
+    width: 30%;
+    height: 40%;
+    justify-self: center;
+    align-self: center;
+    border-radius: 20px;
+    font-size: 20px;
+    font-family: 'Gochi Hand', cursive;
+    letter-spacing: 2px;
+
+}
+
+.forehead {
+    background-color: rgb(255, 238, 0);
+    width: 85%;
+    height: 100%;
+    align-self: end;
+    justify-self: center;
+    border-radius: 20px 20px 2px 2px;
+    box-shadow: inset 0px 10px 16px 0px rgb(108, 108, 108);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2px;
+    border: 3px solid black;
+}
+
+.eyes {
+    border: 2px solid black;
+    height: 70%;
+    width: 80%;
+    align-self: end;
+    border-radius: 50px 50px 0 0;
+    background-color: #fff;
+    display: grid;
+}
+
+.left-eye {
+ justify-self: right;
+}
+
+.pupil {
+    /* color: black; */
+    background-color: #000;
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    justify-self: center;
+    margin-top: 5px;
+    transition: margin-top linear 4s;
+}
+
+.stare {
+    margin-top: 30px;
+}
+
 
 .player {
     padding-top: 25px;
