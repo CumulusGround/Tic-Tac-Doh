@@ -106,39 +106,69 @@ var eyeMovement = function() {
 
 /////////////// FUNCTIONNALS ////////////////
 
+
+var playerTwoTurn = function(player2Kind) {
+
+    clearInterval(pOneTimerOn)
+    pOneTimerOn = null;
+    pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
+
+    if(hasPlayerWon('player-two')) {
+        winningText.textContent = `${ player2Kind } wins this round!`;
+        homerWin.style.display = "block"
+        WinningSequence('player-two')    
+
+    } else if (isADraw()) {
+        WinningSequence('draw')
+    } ;
+
+    playerTextTurn.forEach(function(div){
+        div.classList.toggle('hide')
+    })
+}
+
+
 /////// AI /////
 var EasyAiTurn = function() {
     var boxPicked = Math.floor(Math.random() * 9);
-
     while (boardGameBoxes[boxPicked].classList.contains('checked')) {
         boxPicked = Math.floor(Math.random() * 9);
     } 
 
     setTimeout(function(){
-
         boardGameBoxes[boxPicked].classList.add('player-two', 'checked', 'animated', 'bounceIn');
-        clearInterval(pOneTimerOn)
-        pOneTimerOn = null;
-        pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
-
-        if(hasPlayerWon('player-two')) {
-            winningText.textContent = 'Ralph wins this round!';
-            homerWin.style.display = "block"
-            WinningSequence('player-two')    
-
-        } else if (isADraw()) {
-            WinningSequence('draw')
-        } ;
-
-        playerTextTurn.forEach(function(div){
-            div.classList.toggle('hide')
-        })
+        playerTwoTurn("Ralph");
     }, 2000)
-
-            
-    
 }
 
+
+var hardAiTurn = function() {
+    var blockCounter = 0;
+
+    // var aiCounter = function(axis) {
+    //     axis.forEach(line => {
+            
+    //     });
+    // } 
+    /////////////// YOU HAVE TO MAKE IT A GENERAL FORMULAAAAA  ////////////////
+    col3.forEach(function(box) {
+        if (box.classList.contains('player-one')) {
+            blockCounter ++;
+            console.log(box);
+            console.log(blockCounter);
+        }
+
+        if (blockCounter == 2) {
+            col3.forEach(function(box){
+                if (!(box.classList.contains('player-one'))) {
+                    box.classList.add('player-two', 'checked', 'animated', 'bounceIn');
+                }
+            })
+        }
+    })
+
+    playerTwoTurn("Mr Burns")
+}
 
 //////// Standards //////
 
@@ -222,22 +252,7 @@ var handleTurn = function (e) {
             return
         } else {
             e.target.classList.add('player-two', 'checked', 'animated', 'bounceIn');
-            clearInterval(pOneTimerOn)
-            pOneTimerOn = null;
-            pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
-
-            if(hasPlayerWon('player-two')) {
-                winningText.textContent = 'Player Two wins this round!';
-                homerWin.style.display = "block"
-                WinningSequence('player-two')    
-
-            } else if (isADraw()) {
-                WinningSequence('draw')
-            } ;
-
-            playerTextTurn.forEach(function(div){
-                div.classList.toggle('hide')
-            })
+            playerTwoTurn("Player Two");
             return
         }    
     }
@@ -267,9 +282,13 @@ var handleTurn = function (e) {
         })   
     }
 
+    // Bots's turns
     if (p2Type.textContent === "Ralph (AI)") {
         document.querySelector('.p2-text').textContent = "It's Ralph's turn";
         EasyAiTurn()
+    } else if (p2Type.textContent === "Mr Burns") {
+        document.querySelector('.p2-text').textContent = "It's Mr Burns's turn";
+        hardAiTurn()
     }
 }
 
@@ -285,6 +304,10 @@ var handleTurn = function (e) {
 
 easyAIBtn.addEventListener('click', function (e) {
     p2Type.textContent = "Ralph (AI)"
+});
+
+hardAIBtn.addEventListener('click', function (e) {
+    p2Type.textContent = "Mr Burns"
 });
 
 boardGameBoxes.forEach(function(box) {
