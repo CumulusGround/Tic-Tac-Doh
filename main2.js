@@ -1,12 +1,11 @@
-// console.log('Hawdafi');
-
-
+// PROBLEM WITH AI
+// IF THERE S TWO POSSIBLE SOLUTION TO WIN, AI WILL FREEEZE => WHILE LOOP?
 
 ////////////////////////////////////////////////////////
 //////////////////// DOM ELEMENTS //////////////////////
 ////////////////////////////////////////////////////////
 
-
+//////////////// VISUAL /////////////////////
 var overlayStart = document.getElementById("overlay-start")
 
 var pOneResultDisplay = document.querySelector('.player-one-results');
@@ -14,6 +13,14 @@ var pTwoResultDisplay = document.querySelector('.player-two-results');
 var drawResultDisplay = document.querySelector('.draw-results');
 var p2Type = document.querySelector('.p2-type');
 
+var winningOverlay = document.getElementById("winning-overlay")
+var winningText = document.querySelector('.winning-text');
+var homerWin = document.querySelector('.homer-win');
+var bartWin = document.querySelector('.bart-win');
+var playerTextTurn = document.querySelectorAll('.player-turn-text');
+
+
+/////////// FUNCTIONNAL /////////////////////
 var boardGameBoxes = document.querySelectorAll('.box');
 var col1 = document.querySelectorAll('.col1');
 var col2 = document.querySelectorAll('.col2');
@@ -28,27 +35,21 @@ var allCols = [col1,col2,col3];
 var allDiagonals = [x1,y1];
 
 
-
-
+/////////////// BUTTON //////////////////////
 var resetBtn = document.querySelector('.reset-btn');
 var easyAIBtn = document.querySelector('.easy-AI-btn');
 var hardAIBtn = document.querySelector('.hard-AI-btn');
+var humanBtn = document.querySelector('.human-btn');
 var charactersBtn = document.querySelector('.characters-btn');
 // var winningBtn = document.querySelector('.winning-btn');
 
-var winningOverlay = document.getElementById("winning-overlay")
-var winningText = document.querySelector('.winning-text');
-var homerWin = document.querySelector('.homer-win');
-var bartWin = document.querySelector('.bart-win');
 
-// TO DO!!!!
-var playerTextTurn = document.querySelectorAll('.player-turn-text');
 
 
 ////////////////////////////////////////////////////////
 //////////////////////// DATA //////////////////////////
 ////////////////////////////////////////////////////////
-var audioContext = new AudioContext();
+// var audioContext = new AudioContext();
 
 var pOneArray = [];
 var pTwoArray = [];
@@ -56,7 +57,6 @@ var pOneResult = 0;
 var pTwoResult = 0;
 var drawResult = 0;
 var nGameCounter = 0;
-// round timer
 
 pOneResultDisplay.textContent = pOneResult
 pTwoResultDisplay.textContent = pTwoResult
@@ -104,11 +104,11 @@ var eyeMovement = function() {
     },7000)
 }
 
+
 /////////////// FUNCTIONNALS ////////////////
 
-
 var playerTwoTurn = function(player2Kind) {
-
+    console.log("It Cleared Timers");
     clearInterval(pOneTimerOn)
     pOneTimerOn = null;
     pTwoTimerOn = setInterval(function(){console.log('t2ck')}, 1000)
@@ -130,45 +130,92 @@ var playerTwoTurn = function(player2Kind) {
 
 /////// AI /////
 var EasyAiTurn = function() {
+    var allChecked = document.querySelectorAll('.checked');
     var boxPicked = Math.floor(Math.random() * 9);
-    while (boardGameBoxes[boxPicked].classList.contains('checked')) {
+    while (boardGameBoxes[boxPicked].classList.contains('checked') && allChecked.length < boardGameBoxes.length) {
         boxPicked = Math.floor(Math.random() * 9);
     } 
 
     setTimeout(function(){
         boardGameBoxes[boxPicked].classList.add('player-two', 'checked', 'animated', 'bounceIn');
         playerTwoTurn("Ralph");
-    }, 2000)
+    }, 1500)
 }
 
 
 var hardAiTurn = function() {
-    var blockCounter = 0;
+    var hasPlayed = false;
 
-    // var aiCounter = function(axis) {
-    //     axis.forEach(line => {
-            
-    //     });
-    // } 
-    /////////////// YOU HAVE TO MAKE IT A GENERAL FORMULAAAAA  ////////////////
-    col3.forEach(function(box) {
-        if (box.classList.contains('player-one')) {
-            blockCounter ++;
-            console.log(box);
-            console.log(blockCounter);
+    var checkToBlockPerLine = function(line) {
+        var blockCounter = 0;
+        var fullLineCounter = 0;
+        
+        line.forEach(box => {
+            if (box.classList.contains('checked')) {
+                fullLineCounter ++
+            }    
+        })
+
+        if (fullLineCounter === 2) {
+            line.forEach(box => {
+                if (box.classList.contains('player-one')) {
+                    blockCounter ++;
+                }    
+            }) 
+        } else {
+            fullLineCounter = 0;
+            return       
         }
 
-        if (blockCounter == 2) {
-            col3.forEach(function(box){
+        if (blockCounter === 2) {
+            line.forEach(function(box){
                 if (!(box.classList.contains('player-one'))) {
-                    box.classList.add('player-two', 'checked', 'animated', 'bounceIn');
+
+                    setTimeout(function(){
+                        box.classList.add('player-two', 'checked', 'animated', 'bounceIn');
+                        fullLineCounter = 0;
+                        blockCounter = 0;
+                        playerTwoTurn("Mr Burns")
+                    }, 2000)
+                    
+                    return hasPlayed = true
                 }
             })
+        } else {
+            fullLineCounter = 0;
+            blockCounter = 0;
+            return
         }
-    })
+    }   
+    ///////////////////////////
+    var aiBlock = function(axis) { 
+        axis.forEach(col => {
+            if (hasPlayed) {
+                // guard condition
+            } else {
+                checkToBlockPerLine(col)  
+            }
+        })
+    }
+    aiBlock(allCols)
+    aiBlock(allRows)
+    aiBlock(allDiagonals)
 
-    playerTwoTurn("Mr Burns")
+    if (hasPlayed) {
+        return
+    } else {
+        var boxPicked = Math.floor(Math.random() * 9);
+
+        while (boardGameBoxes[boxPicked].classList.contains('checked') && allChecked.length < boardGameBoxes.length) {
+            boxPicked = Math.floor(Math.random() * 9);
+        }
+        setTimeout(function(){
+            boardGameBoxes[boxPicked].classList.add('player-two', 'checked', 'animated', 'bounceIn');
+            playerTwoTurn("Mr Burns")
+        }, 2000)
+    }
 }
+
 
 //////// Standards //////
 
@@ -246,8 +293,7 @@ var WinningSequence = function(player) {
 
 var handleTurn = function (e) {
     
-    if (pOneTimerOn) { 
-        
+    if (pOneTimerOn) {     
         if (e.target.classList.contains('checked')) { 
             return
         } else {
@@ -293,7 +339,6 @@ var handleTurn = function (e) {
 }
 
 
-
 ////////////////////////////////////////////////////////
 /////////////////// EVENT LISTENNER ////////////////////
 ////////////////////////////////////////////////////////
@@ -302,18 +347,23 @@ var handleTurn = function (e) {
 //     overlayStart.classList.add('hinge');    
 // }, off)
 
+
+
+humanBtn.addEventListener('click', function (e) {
+    p2Type.textContent = "P2"
+});
+
 easyAIBtn.addEventListener('click', function (e) {
     p2Type.textContent = "Ralph (AI)"
 });
 
 hardAIBtn.addEventListener('click', function (e) {
-    p2Type.textContent = "Mr Burns"
+    p2Type.textContent = "Mr Burns (AI)"
 });
 
 boardGameBoxes.forEach(function(box) {
     box.addEventListener('click', handleTurn);
 });
-
 
 resetBtn.addEventListener('click', clearBoard);
 

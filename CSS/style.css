@@ -91,6 +91,15 @@ main {
     grid-template-rows: 1fr 1fr;
 }
 
+.btn {
+    height: 40%;
+    border-radius: 20px;
+    font-size: 20px;
+    font-family: 'Gochi Hand', cursive;
+    letter-spacing: 2px;
+    padding: 10px;
+}
+
 .reset-btn {
     width: 30%;
     height: 40%;
@@ -100,7 +109,6 @@ main {
     font-size: 20px;
     font-family: 'Gochi Hand', cursive;
     letter-spacing: 2px;
-
 }
 
 .forehead {
@@ -169,6 +177,10 @@ main {
     position: absolute;
     top: 200px;
     animation: floating 3s linear infinite;
+}
+
+.p2-text {
+    transform: translateX(-50%);
 }
 
 @keyframes floating {
