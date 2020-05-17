@@ -10,9 +10,18 @@ body {
     font-size: 50px;
     /* display: grid; */
 }
+
+@media (max-width: 600px) {
+    body {
+        font-size: 30px;
+    }
+}
 /* ------------------------------------------- */
 /* ------------------------------------------- */
 /* ------------------------------------------- */
+header {
+    height: 20vh;
+}
 
 h1 {
     text-align: center;
@@ -36,6 +45,17 @@ main {
     justify-items: center;
 }
 
+@media (max-width: 600px) {
+    header {
+        height: 10vh;
+    }
+
+    main {
+        height: 90vh;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+}
+
 /* ------------------------------------------- */
 /* ----------The central section-------------- */
 /* ------------------------------------------- */
@@ -55,6 +75,12 @@ main {
 .hair-top {
     justify-self: center;
     padding-top: 19px;
+}
+
+@media (max-width: 600px) {
+    .hair-top {
+        padding-top: 50px;
+    }
 }
 
 .hair-body {
@@ -197,8 +223,17 @@ main {
 }
 
 .modifiers {
-    /* background-color: #fff; */
     width: 100%;
+}
+
+@media (max-width: 600px) {
+    .modifiers {
+        text-align: center;
+    }
+
+    .human-btn {
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -213,6 +248,18 @@ main {
 
 .player-two {
     background-image: url(./images/Homer-pointing.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.easy-ai {
+    background-image: url(./images/Ralph.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.hard-ai {
+    background-image: url(./images/Mr_Burns.png);
     background-size: cover;
     background-position: center;
 }
