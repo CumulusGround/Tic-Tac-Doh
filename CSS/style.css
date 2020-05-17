@@ -8,7 +8,6 @@ body {
     background-color: rgb(255, 225, 0);
     font-family: 'Gochi Hand', cursive;
     font-size: 50px;
-    /* display: grid; */
 }
 
 @media (max-width: 600px) {
@@ -270,7 +269,7 @@ main {
 /* ------------------------------------------- */
 #overlay-start {
     position: fixed; /* Sit on top of the page content */
-    display: block; /* Hidden by default */
+    display: block;
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     top: 0;
@@ -312,12 +311,6 @@ main {
 
 }
 
-.homer-win {
-    display: none;
-    margin: 0 auto;
-}
-
-.bart-win {
-    display: none;
+.image-win {
     margin: 0 auto;
 }

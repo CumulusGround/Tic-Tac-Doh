@@ -15,8 +15,7 @@ var p2Type = document.querySelector('.p2-type');
 
 var winningOverlay = document.getElementById("winning-overlay")
 var winningText = document.querySelector('.winning-text');
-var homerWin = document.querySelector('.homer-win');
-var bartWin = document.querySelector('.bart-win');
+var winImage = document.querySelector('.image-win');
 var playerTextTurn = document.querySelectorAll('.player-turn-text');
 var p1TextTurn = document.querySelector('.p1-text');
 var p2TextTurn = document.querySelector('.p2-text');
@@ -43,9 +42,6 @@ var easyAIBtn = document.querySelector('.easy-AI-btn');
 var hardAIBtn = document.querySelector('.hard-AI-btn');
 var humanBtn = document.querySelector('.human-btn');
 var charactersBtn = document.querySelector('.characters-btn');
-// var winningBtn = document.querySelector('.winning-btn');
-
-
 
 
 ////////////////////////////////////////////////////////
@@ -73,15 +69,7 @@ var pTwoTimerOn = null;
 
 ////////////// VISUALS //////////////////////
 
-function on() {
-    overlayStart.style.display = "block";
-}
 
-
-function off() {
-    overlayStart.style.display = "none";
-    eyeMovement()
-}
 
 
 var showWinningOverlay = function () {
@@ -91,9 +79,7 @@ var showWinningOverlay = function () {
 
 var winningAnimationOFF = function () {
     winningOverlay.style.display = "none";
-    winningText.textContent = "Doh! It's a draw."
-    homerWin.style.display = "none"
-    bartWin.style.display = "none"
+    // winImage.style.display = "none"
 }
 
 
@@ -108,10 +94,6 @@ var eyeMovement = function() {
 
 
 /////////////// FUNCTIONNALS ////////////////
-
-
-
-
 //////// Standards //////
 
 var clearBoard = function() {
@@ -171,7 +153,7 @@ var isADraw = function() {
     }
 }
 
-var AssignScores = function(player) {
+var assignScores = function(player) {
     setTimeout(function(){
         if (player === 'player-one') {
             pOneResult += 1
@@ -189,41 +171,36 @@ var AssignScores = function(player) {
 }
 
 var winningSequence = function(player) {
-    
     // choose the right text
     // choose the right image
     switch (player) {
         case 'Player One':
             winningText.textContent = 'Player One wins this round!'
-            bartWin.style.display = "block"
-            homerWin.style.display = "none"
+            winImage.src = "/CSS/images/homer-strangle.png"
+            // bartWin.style.display = "block"
+            // homerWin.style.display = "none"
             break;
             
         case 'Player Two':
             winningText.textContent = `Player Two wins this round!`;
-            homerWin.style.display = "block"
-            bartWin.style.display = "none"
+            winImage.src = "/CSS/images/homer-hulk.png"
         break;
     
         case 'Ralph':
             winningText.textContent = 'Ralph wins this round!'
-            homerWin.style.display = "block"
-            bartWin.style.display = "none"
+            winImage.src = "/CSS/images/Ralph.png"
             break;
     
         case 'Mr Burns':
             winningText.textContent = 'Mr Burns wins this round!'
-            homerWin.style.display = "block"
-            bartWin.style.display = "none"
+            winImage.src = "/CSS/images/Mr_Burns.png"
             break;
     
         default:
             winningText.textContent = "Doh! It's a draw..."
-            homerWin.style.display = "none"
-            bartWin.style.display = "none"
+            winImage.src = "/CSS/images/alien.png"
             break;
     }
-
     // Show it
     showWinningOverlay()
 
@@ -231,8 +208,6 @@ var winningSequence = function(player) {
     setTimeout(function(){
         winningAnimationOFF()
     }, 2000)
-        
-    
 }
 
 
@@ -247,7 +222,7 @@ var playerTwoTurn = function(player2Kind) {
 
     if(hasPlayerWon('player-two')) {
         assignScores('player-two')
-        WinningSequence(player2Kind)    
+        winningSequence(player2Kind)    
 
     } else if (isADraw()) {
         assignScores('draw')
@@ -401,10 +376,6 @@ var handleTurn = function (e) {
 /////////////////// EVENT LISTENNER ////////////////////
 ////////////////////////////////////////////////////////
 
-// overlayStart.addEventListener('click', function(){
-//     overlayStart.classList.add('hinge');    
-// }, off)
-
 
 
 humanBtn.addEventListener('click', function (e) {
@@ -435,10 +406,16 @@ resetBtn.addEventListener('click', () => {
     clearScore()   
 });
 
+function on() {
+    overlayStart.style.display = "block";
+}
 
-// winningBtn.addEventListener('click', function () {
-//     boardGameBoxes[0].classList.add('player-one');
-//     boardGameBoxes[1].classList.add('player-one');
-//     // boardGameBoxes[2].classList.add('player-one');
-// });
 
+function off() {
+    overlayStart.style.display = "none";
+    eyeMovement()
+}
+
+overlayStart.addEventListener('click', function(){
+    overlayStart.classList.add('hinge');    
+}, off)
