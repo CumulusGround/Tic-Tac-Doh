@@ -176,29 +176,29 @@ var winningSequence = function(player) {
     switch (player) {
         case 'Player One':
             winningText.textContent = 'Player One wins this round!'
-            winImage.src = "/CSS/images/homer-strangle.png"
+            winImage.src = "./CSS/images/homer-strangle.png"
             // bartWin.style.display = "block"
             // homerWin.style.display = "none"
             break;
             
         case 'Player Two':
             winningText.textContent = `Player Two wins this round!`;
-            winImage.src = "/CSS/images/homer-hulk.png"
+            winImage.src = "./CSS/images/homer-hulk.png"
         break;
     
         case 'Ralph':
             winningText.textContent = 'Ralph wins this round!'
-            winImage.src = "/CSS/images/Ralph.png"
+            winImage.src = "./CSS/images/Ralph.png"
             break;
     
         case 'Mr Burns':
             winningText.textContent = 'Mr Burns wins this round!'
-            winImage.src = "/CSS/images/Mr_Burns.png"
+            winImage.src = "./CSS/images/Mr_Burns.png"
             break;
     
         default:
             winningText.textContent = "Doh! It's a draw..."
-            winImage.src = "/CSS/images/alien.png"
+            winImage.src = "./CSS/images/alien.png"
             break;
     }
     // Show it
