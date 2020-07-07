@@ -41,7 +41,7 @@ var resetBtn = document.querySelector('.reset-btn');
 var easyAIBtn = document.querySelector('.easy-AI-btn');
 var hardAIBtn = document.querySelector('.hard-AI-btn');
 var humanBtn = document.querySelector('.human-btn');
-var charactersBtn = document.querySelector('.characters-btn');
+// var charactersBtn = document.querySelector('.characters-btn');
 
 
 ////////////////////////////////////////////////////////
@@ -383,6 +383,7 @@ humanBtn.addEventListener('click', function (e) {
     document.querySelector('.p2-text').textContent = "It's player two's turn"
     clearBoard()
     clearScore()
+    console.log("here");
 });
 
 easyAIBtn.addEventListener('click', function (e) {
@@ -404,6 +405,7 @@ boardGameBoxes.forEach(function(box) {
 resetBtn.addEventListener('click', () => {
     clearBoard()
     clearScore()   
+    console.log("here");
 });
 
 function on() {
@@ -411,11 +413,27 @@ function on() {
 }
 
 
-function off() {
-    overlayStart.style.display = "none";
-    eyeMovement()
+overlayStart.addEventListener('click', function(){
+    overlayStart.classList.add('hinge');
+    setTimeout(()=> {
+        overlayStart.style.display = "none";
+    }, 1000)
+    eyeMovement()  
+})
+
+
+window.onload = function() {
+    console.log("loaded");
+    if (sessionStorage.length > 1) {
+        console.log("there's already something in here");
+    } else {
+        console.log("Nothing yet, storage empty");
+
+    }
 }
 
-overlayStart.addEventListener('click', function(){
-    overlayStart.classList.add('hinge');    
-}, off)
+// ticTacScores = {
+//     p1: 0,
+//     p2: 0,
+//     draw: 0,
+// }
